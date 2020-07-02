@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>NACOSS CERT. GENERATOR</title>
+    <meta name="description" content="NACOSS CERT Generator">
+    <meta name="author" content="@IAmMasterCraft">
+
+    <link rel="stylesheet" href="css/style.css?v=1.0">
+
+    <!-- widgets & plugins -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link href="//db.onlinewebfonts.com/c/6cec834e2e8f2e4206567ed75e1281d4?family=Brandon+Grotesque+Bold" rel="stylesheet" type="text/css"/>
+    <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script defer src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script defer src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
+    <script defer src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
+    <script defer src="js/script.js"></script>
+
+</head>
+
+<body>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card text-center">
+                <div class="card-header">CERT. GENERATOR</div>
+                <div class="card-body">
+                    <myframe id="mainFrameTarget">
+                        <div class="img-thumbnail">
+                            <img id="baseTemplate" src="./images/base_template.png" style="max-width: 60%; touch-action: none; user-select: none;" />
+                        </div>
+                        <div id="nameHolder" style="margin: 0 35% 0 35%; touch-action: none; user-select: none;">
+                            ENTER YOUR NAME HERE!
+                        </div>
+                    </myframe>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        ---Dynamic Configurations---<br>
+                        Enter Color Code for name: <input type="text" id="colorCode" name="colorCode"><br>
+                        Upload Spreadsheet file: <input type="file" id="spreadsheet" name="spreadsheet">
+                    </div>
+                    <div class="col-md-9">
+                        <button class="btn btn-success">
+                            DOWNLOAD
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
