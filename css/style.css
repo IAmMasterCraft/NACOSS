@@ -1,0 +1,17 @@
+@import url(//db.onlinewebfonts.com/c/6cec834e2e8f2e4206567ed75e1281d4?family=Brandon+Grotesque+Bold);
+
+@font-face {
+    font-family: "Brandon Grotesque Bold"; 
+    src: url("//db.onlinewebfonts.com/t/6cec834e2e8f2e4206567ed75e1281d4.eot"); 
+    src: url("//db.onlinewebfonts.com/t/6cec834e2e8f2e4206567ed75e1281d4.eot?#iefix") 
+    format("embedded-opentype"), 
+    url("//db.onlinewebfonts.com/t/6cec834e2e8f2e4206567ed75e1281d4.woff2") 
+    format("woff2"), url("//db.onlinewebfonts.com/t/6cec834e2e8f2e4206567ed75e1281d4.woff") 
+    format("woff"), url("//db.onlinewebfonts.com/t/6cec834e2e8f2e4206567ed75e1281d4.ttf") 
+    format("truetype"), url("//db.onlinewebfonts.com/t/6cec834e2e8f2e4206567ed75e1281d4.svg#Brandon Grotesque Bold") 
+    format("svg"); 
+}
+
+body {
+    font-family: "Brandon Grotesque Bold" !important;
+}
