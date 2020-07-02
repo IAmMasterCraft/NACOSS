@@ -40,9 +40,9 @@
                     </myframe>
                 </div>
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-3 text-left">
                         ---Dynamic Configurations---<br>
-                        Enter Color Code for name: <input type="text" id="colorCode" name="colorCode"><br>
+                        Enter Color Code for name: <input type="text" id="colorCode" name="colorCode" oninput="setColor($(this).val())"><br>
                         Upload Spreadsheet file: <input type="file" id="spreadsheet" name="spreadsheet">
                     </div>
                     <div class="col-md-9">
