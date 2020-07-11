@@ -19,7 +19,9 @@
     <script defer src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script defer src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
-    <script defer src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
+    <script defer type="text/javascript" src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.5.0/jszip.min.js" integrity="sha512-y3o0Z5TJF1UsKjs/jS2CDkeHN538bWsftxO9nctODL5W40nyXIbs0Pgyu7//icrQY9m6475gLaVr39i/uh/nLA==" crossorigin="anonymous"></script>
+    <!-- <script defer src="https://unpkg.com/jspdf@latest/dist/jspdf.min.js"></script> -->
     <script defer src="js/script.js"></script>
 
 </head>
@@ -30,26 +32,30 @@
             <div class="card text-center">
                 <div class="card-header">CERT. GENERATOR</div>
                 <div class="card-body">
-                    <myframe id="mainFrameTarget">
+                    <div id="mainFrameTarget" style="">
                         <div class="img-thumbnail">
-                            <img id="baseTemplate" src="./images/base_template.png" style="max-width: 60%; touch-action: none; user-select: none;" />
+                            <img id="baseTemplate" src="./images/base_template.png" style="max-width: 60%; padding: 10% 0 10% 0; touch-action: none; user-select: none; display: none;" />
                         </div>
-                        <div id="nameHolder" contenteditable="true" style="margin: 0 35% 0 35%; touch-action: none; user-select: none;">
-                            CLICK TO ENTER YOUR NAME HERE!
+                        <div id="nameHolder" style="margin: 0 35% 0 35%; touch-action: none; user-select: none;" >
+                            ENTER YOUR NAME HERE!
                         </div>
-                    </myframe>
+                    </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-3 text-left">
+                    <div class="col-md-6 text-left">
                         ---Dynamic Configurations---<br>
-                        Enter Color Code for name: <input type="text" id="colorCode" name="colorCode" oninput="setColor($(this).val())"><br>
-                        Upload Spreadsheet file: <input type="file" id="spreadsheet" name="spreadsheet">
+                        Upload BaseTemplate IMG FILE: <input type="file" id="baseFile" name="baseFile" onchange="loadImage(this)" accept="image/*" style="display: inline;"><br><br>
+                        Enter Color Code for name: <input type="text" id="colorCode" name="colorCode" oninput="setColor($(this).val())"><br><br>
+                        Enter the title of NAMES column: <input type="text" id="nameCol" name="nameCol"><br><br>
+                        Upload Spreadsheet file: <input type="file" id="csvFileInput" name="csvFileInput" onchange="handleFiles(this.files)" accept=".csv" style="display: inline;">
                     </div>
-                    <div class="col-md-9">
-                        <button class="btn btn-success">
-                            DOWNLOAD
-                        </button>
+                    <div class="col-md-6 text-center">
+                        <span id="loadingAnime" style="display: none;"><img src="https://i.stack.imgur.com/hzk6C.gif" ></span><br>
+                        <h3 class="notice"></h3>
                     </div>
+                </div>
+
+                <div id="capture" style="padding: 10px; display: none;">
                 </div>
             </div>
         </div>
