@@ -1,10 +1,13 @@
 var zipFile = new JSZip();
 var totalCsvRec;
+var allRec = [];
 
 function handleFiles(files) {
   // Check for the various File API support.
   if (window.FileReader) {
     // FileReader are supported.
+    $("#loadingAnime").show();
+    $(".notice").text("Now parsing CSV file . . . ");
     getAsText(files[0]);
   } else {
     alert("FileReader are not supported in this browser!");
@@ -17,6 +20,7 @@ function getAsText(fileToRead) {
   reader.onload = loadHandler;
   reader.onerror = errorHandler;
   // Read file into memory as UTF-8
+  $(".notice").text("Now reading CSV file . . . ");
   reader.readAsText(fileToRead);
 }
 
@@ -52,8 +56,10 @@ function processDataAsObj(csv) {
     lines.push(obj);
   }
   // console.log(lines);
-  totalCsvRec = lines.length;
-  getUserNames(lines);
+  allRec = lines;
+  totalCsvRec = allRec.length;
+  $(".notice").text(totalCsvRec + " names found in CSV file . . . ");
+  getUserNames(allRec);
 }
 
 function errorHandler(evt) {
@@ -64,9 +70,12 @@ function errorHandler(evt) {
 
 function getUserNames(csvArr) {
   let nameIndex = '"' + $("#nameCol").val() + '"';
-  csvArr.forEach(function (item, key) {
-    generateCert(item[nameIndex]);
-  });
+  let zipCertLenght = Object.keys(zipFile["files"]).length;
+  if (zipCertLenght < totalCsvRec) {
+    $(".notice").text("Now generating the " + zipCertLenght + "th certificate for " + csvArr[zipCertLenght][nameIndex].replace(/"/g, '').toUpperCase() + " . . . ");
+    generateCert(csvArr[zipCertLenght][nameIndex]);
+  }
+  
 }
 
 function generateCert(userName) {
@@ -74,11 +83,12 @@ function generateCert(userName) {
     $("#nameHolder")
       .css("border-color", "transparent")
       .text(userName.replace(/"/g, '').toUpperCase());
-    $("#capture").empty();
+    // $("#nameHolder").css("width", $("#nameHolder").text().replace(/"/g, "").length * 8);
     html2canvas(document.querySelector("#mainFrameTarget"), {scrollY: -window.scrollY}).then((canvas) => {
       document.querySelector("#capture").appendChild(canvas);
       var img = canvas.toDataURL("image/png", 1.0);
       // console.log(img);
+      $(".notice").text("Certificate for " + userName.replace(/"/g, '').toUpperCase() + " generated . . . ");
       assignToZip(img.replace("data:image/png;base64,", ""), userName);
     });
   } catch (error) {}
@@ -86,7 +96,7 @@ function generateCert(userName) {
 
 function assignToZip(certUri, userName) {
   $.when(
-    zipFile.file(userName.replace(/"/g, "") + ".png", certUri, { base64: true })
+    zipFile.file(userName.replace(/"/g, "") + Math.floor(Math.random() * 10) + ".png", certUri, { base64: true })
   ).done(function () {
     //check if length of zipfile objex == length of csv records
     let zipCertLenght = Object.keys(zipFile["files"]).length;
@@ -95,16 +105,18 @@ function assignToZip(certUri, userName) {
     } else {
       //bring out loader
       $("#loadingAnime").show();
-      $(".notice").text(zipCertLenght + " certificate" + ((zipCertLenght > 1) ? "s" : "") + " generated . . . ");
+      $(".notice").text(zipCertLenght + " certificate" + ((zipCertLenght > 1) ? "s" : "") + " archived for download . . . ");
+      getUserNames(allRec);
     }
   });
 }
 
 function packageZip(zipCertLenght) {
-  $(".notice").text("A total of " + zipCertLenght + " certificate" + ((zipCertLenght > 1) ? "s" : "") + " has been generated, Archive Processing has started, compressing to zip file . . . ");
-  zipFile.generateAsync({ type: "base64" }).then(
-    function (base64) {
-      location.href = "data:application/zip;base64," + base64;
+  // $(".notice").text("A total of " + zipCertLenght + " certificate" + ((zipCertLenght > 1) ? "s" : "") + " has been generated, Archive Processing has started, compressing to zip file . . . ");
+  zipFile.generateAsync({ type: "blob" }).then(
+    function (blob) {
+      // location.href = "data:application/zip;base64," + base64;
+      saveAs(blob, "allCertificates.zip");
       $(".notice").text("All " + zipCertLenght + " certificate" + ((zipCertLenght > 1) ? "s" : "") + " has been archived and downloaded as a zip file . . . ");
       $("#loadingAnime").show();
     },
@@ -199,3 +211,5 @@ $(document).ready(function () {
 
 //char length without space * 27 = width
 // $("#nameHolder").css("width", $("#nameHolder").text().replace(/\s/g, "").length * 27)
+// divide & conquer
+// 9376f95f-8b39-4b77-acc2-8eb295b473db
