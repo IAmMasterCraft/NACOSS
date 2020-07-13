@@ -7032,7 +7032,7 @@
                     }
                     Logger.getInstance(instanceName).debug("Finished rendering");
                     // Logger.destroy(instanceName);
-                    CacheStorage.destroy(instanceName);
+                    // CacheStorage.destroy(instanceName);
                     return [2 /*return*/, canvas];
             }
         });
